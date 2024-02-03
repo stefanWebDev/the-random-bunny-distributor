@@ -1,7 +1,7 @@
 import './App.css';
 
 function App() {
-  return <>The Random Bunny Distributor</>;
+  return <>The RandomBunny Distributor</>;
 }
 
 export default App;
