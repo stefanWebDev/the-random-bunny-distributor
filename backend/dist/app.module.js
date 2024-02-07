@@ -12,6 +12,8 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
+const core_1 = require("@nestjs/core");
+const Module_1 = require("./modules/oauth/Module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -21,6 +23,13 @@ exports.AppModule = AppModule = __decorate([
             serve_static_1.ServeStaticModule.forRoot({
                 rootPath: (0, path_1.join)(__dirname, '..', '..', 'client', 'dist'),
             }),
+            core_1.RouterModule.register([
+                {
+                    path: 'api',
+                    module: Module_1.OAuthModule,
+                },
+            ]),
+            Module_1.OAuthModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
