@@ -1,36 +1,30 @@
 import { Button, Form, Input } from 'antd';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     email: '',
     password: '',
   });
 
   const register = async () => {
-    /*   try {
-         const response = await fetch('http://localhost:4000/api/register', {
-           method: 'POST',
-           headers: {
-             'Content-Type': 'application/json',
-           },
-           body: JSON.stringify(userData),
-         });
-         const data = await response.json();
-         console.log(data);
-       } catch (error) {
-         console.error(error);
-       }
-   */
     try {
-      const response = await fetch('http://localhost:3000/api/oauth/test', {
-        method: 'GET',
+      const response = await fetch('http://localhost:3000/api/oauth/register', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(userData),
       });
-      const data = await response.json();
-      console.log(data);
+
+      if (!response.ok) {
+        //todo set error message
+        console.error('failed to register ');
+        return;
+      }
+      navigate('/login');
     } catch (error) {
       console.error(error);
     }
