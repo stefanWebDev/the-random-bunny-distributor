@@ -1,11 +1,35 @@
 import { Button, Form, Input } from 'antd';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     email: '',
     password: '',
   });
+
+  //todo make generic
+  const login = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/oauth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        //todo set error message
+        console.error('failed to register ');
+        return;
+      }
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -50,7 +74,7 @@ const Login = () => {
           valuePropName="checked"
           wrapperCol={{ offset: 8, span: 16 }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button onClick={() => login()} type="primary" htmlType="submit">
             Login
           </Button>
         </Form.Item>
