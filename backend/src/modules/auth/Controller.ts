@@ -6,12 +6,14 @@ import {
   HttpStatus,
   Logger,
   Post,
+  Res,
 } from '@nestjs/common';
 import { OAuthService } from './Service';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { UserService } from '../prisma/user.service';
 import * as bcrypt from 'bcrypt';
 import { SessionService } from '../prisma/session.service';
+import { Response } from 'express';
 
 class UserDto {
   @IsEmail()
@@ -47,7 +49,7 @@ export class OAuthController {
   }
 
   @Post('login')
-  async login(@Body() userData: UserDto) {
+  async login(@Body() userData: UserDto, @Res() res: Response) {
     try {
       const user = await this.userService.user({ email: userData.email });
       if (!user) {
@@ -67,9 +69,10 @@ export class OAuthController {
         },
       });
 
-      return {
-        cookie: session.sessionId,
-      };
+      res.cookie('sessionId', session.sessionId, { httpOnly: true });
+      return res.send({
+        message: 'Login successful',
+      });
     } catch (e) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
