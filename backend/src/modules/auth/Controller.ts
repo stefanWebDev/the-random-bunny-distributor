@@ -11,6 +11,7 @@ import { OAuthService } from './Service';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { UserService } from '../prisma/user.service';
 import * as bcrypt from 'bcrypt';
+import { SessionService } from '../prisma/session.service';
 
 class UserDto {
   @IsEmail()
@@ -28,6 +29,7 @@ export class OAuthController {
   constructor(
     private oauthService: OAuthService,
     private readonly userService: UserService,
+    private readonly sessionService: SessionService,
   ) {}
 
   @Get('test')
@@ -46,7 +48,6 @@ export class OAuthController {
 
   @Post('login')
   async login(@Body() userData: UserDto) {
-    console.log(userData);
     try {
       const user = await this.userService.user({ email: userData.email });
       if (!user) {
@@ -57,6 +58,18 @@ export class OAuthController {
       if (!isMatch) {
         new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
       }
+
+      const session = await this.sessionService.createSession({
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      });
+
+      return {
+        cookie: session.sessionId,
+      };
     } catch (e) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }

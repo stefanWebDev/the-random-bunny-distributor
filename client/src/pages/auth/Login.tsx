@@ -1,9 +1,8 @@
 import { Button, Form, Input } from 'antd';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const navigate = useNavigate();
+  /*  const navigate = useNavigate();*/
   const [userData, setUserData] = useState({
     email: '',
     password: '',
@@ -25,7 +24,9 @@ const Login = () => {
         console.error('failed to register ');
         return;
       }
-      navigate('/');
+
+      console.log(await response.json());
+      /*      navigate('/');*/
     } catch (error) {
       console.error(error);
     }

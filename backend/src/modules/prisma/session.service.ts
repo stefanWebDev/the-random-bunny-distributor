@@ -14,13 +14,10 @@ export class SessionService {
     });
   }
 
-  async createSession(
-    data: Prisma.SessionCreateInput,
-    userId: number,
-  ): Promise<Session> {
+  async createSession(data: Prisma.SessionCreateInput): Promise<Session> {
     return this.prisma.session.create({
       data: {
-        userId,
+        user: data.user,
       },
     });
   }
