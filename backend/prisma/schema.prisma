@@ -21,8 +21,9 @@ model User {
 }
 
 model Session {
-  id        Int    @id @default(autoincrement())
-  sessionId String
-  user      User   @relation(fields: [userId], references: [id])
-  userId    Int    @unique
+  id        Int      @id @default(autoincrement())
+  sessionId String   @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  createdAt DateTime @default(now())
 }

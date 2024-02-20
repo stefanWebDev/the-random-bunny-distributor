@@ -8,11 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
+const core_1 = require("@nestjs/core");
+const Module_1 = require("./modules/auth/Module");
+const app_controller_1 = require("./app.controller");
+const Module_2 = require("./modules/prisma/Module");
+const Middleware_1 = require("./modules/auth/Middleware");
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer
+            .apply(Middleware_1.AuthMiddleware)
+            .exclude({ path: 'login', method: common_1.RequestMethod.GET }, { path: 'register', method: common_1.RequestMethod.GET })
+            .forRoutes('*');
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
@@ -21,6 +31,14 @@ exports.AppModule = AppModule = __decorate([
             serve_static_1.ServeStaticModule.forRoot({
                 rootPath: (0, path_1.join)(__dirname, '..', '..', 'client', 'dist'),
             }),
+            core_1.RouterModule.register([
+                {
+                    path: 'api',
+                    module: Module_1.OAuthModule,
+                },
+            ]),
+            Module_1.OAuthModule,
+            Module_2.PrismaModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
