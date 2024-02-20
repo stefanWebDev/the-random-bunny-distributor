@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -6,6 +6,7 @@ import { RouterModule } from '@nestjs/core';
 import { OAuthModule } from './modules/auth/Module';
 import { AppController } from './app.controller';
 import { PrismaModule } from './modules/prisma/Module';
+import { AuthMiddleware } from './modules/auth/Middleware';
 
 @Module({
   imports: [
@@ -24,4 +25,14 @@ import { PrismaModule } from './modules/prisma/Module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude(
+        { path: 'login', method: RequestMethod.GET },
+        { path: 'register', method: RequestMethod.GET },
+      )
+      .forRoutes('*');
+  }
+}

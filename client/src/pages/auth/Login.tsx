@@ -1,5 +1,6 @@
 import { Button, Form, Input } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 const Login = () => {
   /*  const navigate = useNavigate();*/
@@ -31,6 +32,10 @@ const Login = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    console.log(Cookies.get('sessionId'));
+  }, []);
 
   return (
     <div>

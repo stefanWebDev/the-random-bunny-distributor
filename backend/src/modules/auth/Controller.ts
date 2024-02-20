@@ -69,7 +69,16 @@ export class OAuthController {
         },
       });
 
-      res.cookie('sessionId', session.sessionId, { httpOnly: true });
+      res.cookie('sessionId', session.sessionId, {
+        httpOnly: false,
+        maxAge: 3600000,
+      });
+
+      res.cookie('userId', user.id, {
+        httpOnly: false,
+        maxAge: 3600000,
+      });
+
       return res.send({
         message: 'Login successful',
       });

@@ -15,7 +15,14 @@ const core_1 = require("@nestjs/core");
 const Module_1 = require("./modules/auth/Module");
 const app_controller_1 = require("./app.controller");
 const Module_2 = require("./modules/prisma/Module");
+const Middleware_1 = require("./modules/auth/Middleware");
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer
+            .apply(Middleware_1.AuthMiddleware)
+            .exclude({ path: 'login', method: common_1.RequestMethod.GET }, { path: 'register', method: common_1.RequestMethod.GET })
+            .forRoutes('*');
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
