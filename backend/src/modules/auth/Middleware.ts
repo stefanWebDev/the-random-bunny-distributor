@@ -26,9 +26,9 @@ export class AuthMiddleware implements NestMiddleware {
       const diffInHours =
         (currentDate.getTime() - givenDate.getTime()) / 1000 / 60 / 60;
 
-      const isOlderThan24Hours = diffInHours < 24;
+      const isYoungerThan24Hours = diffInHours < 24;
 
-      if (isOlderThan24Hours) {
+      if (isYoungerThan24Hours) {
         next();
       } else {
         res.redirect('/login');
