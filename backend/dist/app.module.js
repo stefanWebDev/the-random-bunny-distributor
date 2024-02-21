@@ -16,6 +16,7 @@ const Module_1 = require("./modules/auth/Module");
 const app_controller_1 = require("./app.controller");
 const Module_2 = require("./modules/prisma/Module");
 const Middleware_1 = require("./modules/auth/Middleware");
+const Module_3 = require("./modules/bunny/Module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -36,9 +37,14 @@ exports.AppModule = AppModule = __decorate([
                     path: 'api',
                     module: Module_1.OAuthModule,
                 },
+                {
+                    path: 'api',
+                    module: Module_3.BunnyModule,
+                },
             ]),
             Module_1.OAuthModule,
             Module_2.PrismaModule,
+            Module_3.BunnyModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
