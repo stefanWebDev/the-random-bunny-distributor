@@ -5,5 +5,8 @@
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0"
+  },
+  "dependencies": {
+    "react-query": "^3.39.3"
   }
 }
