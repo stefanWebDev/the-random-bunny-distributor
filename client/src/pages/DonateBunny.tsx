@@ -1,6 +1,10 @@
 import { Button, Form, Input } from 'antd';
+import { useMutation } from 'react-query';
+import axios from 'axios';
 
-const GiveBunny = () => {
+const DonateBunny = () => {
+  const mutation = useMutation((newData) => axios.post('/api/data', newData));
+
   return (
     <div>
       <h1>Donate a Bunny</h1>
@@ -51,4 +55,4 @@ const GiveBunny = () => {
   );
 };
 
-export default GiveBunny;
+export default DonateBunny;
