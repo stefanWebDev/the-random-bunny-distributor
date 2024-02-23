@@ -1,9 +1,31 @@
 import { Button, Form, Input } from 'antd';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 import axios from 'axios';
 
+interface BunnyData {
+  name: string;
+  description: string;
+  email: string;
+}
+
 const DonateBunny = () => {
-  const mutation = useMutation((newData) => axios.post('/api/data', newData));
+  const [bunnyData, setBunnyData] = useState({
+    name: '',
+    description: '',
+    email: '',
+  });
+  const mutation = useMutation(
+    (newData: BunnyData) => axios.post('/api/bunny/add', newData),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    },
+  );
 
   return (
     <div>
@@ -17,28 +39,34 @@ const DonateBunny = () => {
         initialValues={{ remember: true }}
         autoComplete="off"
       >
-        <Form.Item
-          label="name"
-          name="name"
-          rules={[{ required: true, message: 'Please input your email!' }]}
-        >
-          <Input onChange={(e) => console.log()} />
+        <Form.Item label="name" name="name">
+          <Input
+            onChange={(e) =>
+              setBunnyData((prevState) => {
+                return { ...prevState, name: e.target.value };
+              })
+            }
+          />
         </Form.Item>
 
-        <Form.Item
-          label="description"
-          name="description"
-          rules={[{ required: true, message: 'Please input your email!' }]}
-        >
-          <Input onChange={(e) => console.log()} />
+        <Form.Item label="description" name="description">
+          <Input
+            onChange={(e) =>
+              setBunnyData((prevState) => {
+                return { ...prevState, description: e.target.value };
+              })
+            }
+          />{' '}
         </Form.Item>
 
-        <Form.Item
-          label="email"
-          name="email"
-          rules={[{ required: true, message: 'Please input your email!' }]}
-        >
-          <Input onChange={(e) => console.log()} />
+        <Form.Item label="email" name="email">
+          <Input
+            onChange={(e) =>
+              setBunnyData((prevState) => {
+                return { ...prevState, email: e.target.value };
+              })
+            }
+          />{' '}
         </Form.Item>
 
         <Form.Item
@@ -46,7 +74,11 @@ const DonateBunny = () => {
           valuePropName="checked"
           wrapperCol={{ offset: 8, span: 16 }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button
+            onClick={() => mutation.mutate(bunnyData)}
+            type="primary"
+            htmlType="submit"
+          >
             Donate
           </Button>
         </Form.Item>

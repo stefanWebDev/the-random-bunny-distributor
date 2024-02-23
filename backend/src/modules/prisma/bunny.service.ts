@@ -3,7 +3,7 @@ import { PrismaService } from './prisma.service';
 import { Bunny, Prisma } from '@prisma/client';
 
 @Injectable()
-export class BunnyService {
+export class BunnyDbService {
   constructor(private prisma: PrismaService) {}
 
   async bunny(

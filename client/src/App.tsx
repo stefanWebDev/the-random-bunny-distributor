@@ -5,19 +5,23 @@ import ReceiveBunny from './pages/ReceiveBunny.tsx';
 import ListOfRiddles from './pages/ListOfRiddles.tsx';
 import Register from './pages/auth/Register.tsx';
 import Login from './pages/auth/Login.tsx';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 function App() {
+  const queryClient = new QueryClient();
   return (
-    <Router>
-      <Routes>
-        <Route path="/" Component={Home} />
-        <Route path="/donate-bunny" Component={DonateBunny} />
-        <Route path="/receive-bunny" Component={ReceiveBunny} />
-        <Route path="/list-of-riddles" Component={ListOfRiddles} />
-        <Route path="/register" Component={Register} />
-        <Route path="/login" Component={Login} />
-      </Routes>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
+          <Route path="/" Component={Home} />
+          <Route path="/donate-bunny" Component={DonateBunny} />
+          <Route path="/receive-bunny" Component={ReceiveBunny} />
+          <Route path="/list-of-riddles" Component={ListOfRiddles} />
+          <Route path="/register" Component={Register} />
+          <Route path="/login" Component={Login} />
+        </Routes>
+      </Router>
+    </QueryClientProvider>
   );
 }
 
