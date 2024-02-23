@@ -7,6 +7,7 @@ import { OAuthModule } from './modules/auth/Module';
 import { AppController } from './app.controller';
 import { PrismaModule } from './modules/prisma/Module';
 import { AuthMiddleware } from './modules/auth/Middleware';
+import { BunnyModule } from './modules/bunny/Module';
 
 @Module({
   imports: [
@@ -18,9 +19,14 @@ import { AuthMiddleware } from './modules/auth/Middleware';
         path: 'api',
         module: OAuthModule,
       },
+      {
+        path: 'api',
+        module: BunnyModule,
+      },
     ]),
     OAuthModule,
     PrismaModule,
+    BunnyModule,
   ],
   controllers: [AppController],
   providers: [AppService],

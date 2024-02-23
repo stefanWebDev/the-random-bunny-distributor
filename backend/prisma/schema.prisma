@@ -27,3 +27,10 @@ model Session {
   userId    Int      @unique
   createdAt DateTime @default(now())
 }
+
+model Bunny {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  email       String
+}

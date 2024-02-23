@@ -40,9 +40,7 @@ const Login = () => {
   return (
     <div>
       <h1>Login</h1>
-      {/*
       todo make this generic
-*/}
       <Form
         name="basic"
         labelCol={{ span: 8 }}
