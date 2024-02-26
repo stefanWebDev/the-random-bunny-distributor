@@ -5,6 +5,7 @@ import ReceiveBunny from './pages/ReceiveBunny.tsx';
 import Register from './pages/auth/Register.tsx';
 import Login from './pages/auth/Login.tsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import Winners from './pages/Winners.tsx';
 
 function App() {
   const queryClient = new QueryClient();
@@ -17,6 +18,7 @@ function App() {
           <Route path="/receive-bunny" Component={ReceiveBunny} />
           <Route path="/register" Component={Register} />
           <Route path="/login" Component={Login} />
+          <Route path="/winners" Component={Winners} />
         </Routes>
       </Router>
     </QueryClientProvider>
