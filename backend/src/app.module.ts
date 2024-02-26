@@ -8,6 +8,7 @@ import { AppController } from './app.controller';
 import { PrismaModule } from './modules/prisma/Module';
 import { AuthMiddleware } from './modules/auth/Middleware';
 import { BunnyModule } from './modules/bunny/Module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { BunnyModule } from './modules/bunny/Module';
     OAuthModule,
     PrismaModule,
     BunnyModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],

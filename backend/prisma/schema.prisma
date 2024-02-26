@@ -11,13 +11,13 @@ datasource db {
 }
 
 model User {
-  id                Int      @id @default(autoincrement())
-  email             String   @unique
-  name              String?
-  password          String
-  isReceiver        Boolean  @default(false)
-  noMoreBunnyForYou Boolean  @default(false)
-  session           Session?
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  name       String?
+  password   String
+  isReceiver Boolean  @default(false)
+  donorMail  String?
+  session    Session?
 }
 
 model Session {
