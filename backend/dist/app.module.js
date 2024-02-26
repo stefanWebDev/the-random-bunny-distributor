@@ -17,6 +17,7 @@ const app_controller_1 = require("./app.controller");
 const Module_2 = require("./modules/prisma/Module");
 const Middleware_1 = require("./modules/auth/Middleware");
 const Module_3 = require("./modules/bunny/Module");
+const schedule_1 = require("@nestjs/schedule");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -45,6 +46,7 @@ exports.AppModule = AppModule = __decorate([
             Module_1.OAuthModule,
             Module_2.PrismaModule,
             Module_3.BunnyModule,
+            schedule_1.ScheduleModule.forRoot(),
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

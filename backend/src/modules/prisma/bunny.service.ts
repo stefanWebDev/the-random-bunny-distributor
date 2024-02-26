@@ -14,6 +14,10 @@ export class BunnyDbService {
     });
   }
 
+  async getAllBunnies(): Promise<Bunny[]> {
+    return this.prisma.bunny.findMany();
+  }
+
   async createBunny(data: Prisma.BunnyCreateInput): Promise<Bunny> {
     return this.prisma.bunny.create({
       data: {
