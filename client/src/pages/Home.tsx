@@ -10,6 +10,12 @@ const Home = () => {
         Choose - but choose wiesly. There is no turning back (except via the
         back button I guess). Hush now or no bunny for you.
       </p>
+
+      <p>
+        By the way, everyday at midnight, one random bunny will be donated to
+        one random user. If you are the lucky one, you will receive the email of
+        the donor for you guys to get into contact. Good luck!
+      </p>
       <Button href={'/donate-bunny'} type="default">
         Donate a bunny
       </Button>
