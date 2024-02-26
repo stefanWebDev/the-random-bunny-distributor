@@ -59,16 +59,6 @@ const DonateBunny = () => {
           />{' '}
         </Form.Item>
 
-        <Form.Item label="email" name="email">
-          <Input
-            onChange={(e) =>
-              setBunnyData((prevState) => {
-                return { ...prevState, email: e.target.value };
-              })
-            }
-          />{' '}
-        </Form.Item>
-
         <Form.Item
           name="remember"
           valuePropName="checked"
