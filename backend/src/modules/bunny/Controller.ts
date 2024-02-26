@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post, Req } from '@nestjs/common';
 import { IsBoolean, IsNotEmpty } from 'class-validator';
 import { Request } from 'express';
 import { BunnyService } from './Service';
@@ -53,6 +53,18 @@ export class BunnyController {
       where: { id: randomReceiver.id },
       data: { donorMail: randomBunny.email },
     });
+  }
+
+  @Get('winner')
+  async getWinner(@Req() req: Request) {
+    const userId = req.headers.cookie.split('userId=')[1].split(';')[0];
+    const user = await this.userService.user({ id: parseInt(userId) });
+
+    if (user.donorMail) {
+      return { email: user.donorMail };
+    } else {
+      return { error: 'No bunny for you' };
+    }
   }
 
   getRandomElement<T>(items: T[]): T {
